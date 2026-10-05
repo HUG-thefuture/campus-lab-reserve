@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# 依赖清单（Python 3.14 验证通过；pip install -r requirements.txt --target vendor 离线安装见 README）
+fastapi>=0.115          # Web 框架（含 Pydantic v2 集成、/docs 自动 OpenAPI 文档）
+uvicorn>=0.30           # ASGI 服务器
+sqlalchemy>=2.0.30,<2.1 # ORM（同步用法，2.0 Mapped 风格）
+pydantic>=2.7,<3.0      # v2 数据校验
+pyjwt>=2.8,<3.0         # JWT 签发/校验
+pymysql>=1.1            # DATABASE_URL 切 MySQL 时的纯 Python 驱动
+cryptography>=42        # MySQL 8 caching_sha2_password 认证所需（PyMySQL）
+requests>=2.31          # 测试：requests 打真实 HTTP
+pytest>=8               # 测试框架

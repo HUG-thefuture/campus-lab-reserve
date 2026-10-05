@@ -1,0 +1,37 @@
+# =====================================================================
+# MySQL 8.0 + 建库 SQL（静态交付文件）
+# 注意：本文件需 Docker Desktop 才能运行（撰写/验证环境本机未安装 Docker，
+#       故未实际执行 docker compose up；本机验证改用 MySQL 8.4 直装实例，
+#       用两个 schema.sql 手工建库，见根 README「MySQL 切换验证」一节）。
+#
+# 使用方法（装有 Docker Desktop 的机器）：
+#   docker compose up -d          # 首次启动自动执行两个 schema.sql 建库
+#   docker compose ps             # 等待 healthy
+#   docker compose down -v        # 停止并清空数据卷
+# =====================================================================
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: resume-python-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # docker-entrypoint-initdb.d 下的 SQL 仅在数据卷为空（首次启动）时自动执行
+      - ./lab_reserve/schema.sql:/docker-entrypoint-initdb.d/01_lab_reserve.sql:ro
+      - ./study_checkin/schema.sql:/docker-entrypoint-initdb.d/02_study_checkin.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  mysql_data:
