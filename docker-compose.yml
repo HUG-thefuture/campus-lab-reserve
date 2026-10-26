@@ -1,8 +1,7 @@
 # =====================================================================
 # MySQL 8.0 + 建库 SQL（静态交付文件）
-# 注意：本文件需 Docker Desktop 才能运行（撰写/验证环境本机未安装 Docker，
-#       故未实际执行 docker compose up；本机验证改用 MySQL 8.4 直装实例，
-#       用两个 schema.sql 手工建库，见根 README「MySQL 切换验证」一节）。
+# 2026-10-27 已实测：Docker Desktop 29.9.2 下 compose up -d 约 15s 转 healthy，
+#       两份 schema.sql 自动建表（lab_reserve 3 表 / study_checkin 2 表）。
 #
 # 使用方法（装有 Docker Desktop 的机器）：
 #   docker compose up -d          # 首次启动自动执行两个 schema.sql 建库

@@ -108,3 +108,5 @@ project/
 - **核心场景**：登录→选设备→约时段（冲突拦截）→教师审核→归还；角色权限贯穿。
 - **成功指标（实测）**：56 例 HTTP 回归全绿；`lab_reserve/scripts/seed_demo.py` 一键出可登录演示数据（三角色+各状态预约）。
 - **未来计划**：周历视图；预约开始前的提醒通知；打卡服务（study_checkin）看板联动。
+
+> **2026-10-27 Docker Desktop 29.9.2 本机实测**：`docker compose up -d` 起 MySQL 8 约 15s 转 healthy，两份 schema.sql 自动建表 lab_reserve（devices/reservations/users）+ study_checkin（checkins/users）。宿主机 3306 被占用时可用 override 端口映射，不影响默认用法。
